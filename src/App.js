@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import LearnReactButton from './LearnReactButton';
-import Cart from './Cart';
-import Shop from './Shop'; // Import the Shop component
+//import Cart from './Cart';
+//import Shop from './Shop'; // Import the Shop component
 
 // Navigation bar component
 const Navbar = () => {
@@ -50,5 +50,6 @@ function App() {
 }
 
 export default App;
+
 
 
