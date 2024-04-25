@@ -40,7 +40,7 @@ function App() {
           <LearnReactButton />
         </header>
         <Routes>
-          <Route path="/" exact element={<Cart />} />
+          <Route path="/cart" exact element={<Cart />} />
           <Route path="/shop" element={<Shop />} /> {/* Route for the Shop page */}
         </Routes>
         <Footer /> {/* Include the footer */}
