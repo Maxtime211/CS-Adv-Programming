@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LearnReactButton from './LearnReactButton';
 import Cart from './Cart';
@@ -39,10 +39,10 @@ function App() {
           </p>
           <LearnReactButton />
         </header>
-        <Switch>
-          <Route path="/" exact component={Cart} />
-          <Route path="/shop" component={Shop} /> {/* Route for the Shop page */}
-        </Switch>
+        <Routes>
+          <Route path="/" exact element={<Cart />} />
+          <Route path="/shop" element={<Shop />} /> {/* Route for the Shop page */}
+        </Routes>
         <Footer /> {/* Include the footer */}
       </div>
     </Router>
