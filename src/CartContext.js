@@ -1,12 +1,25 @@
-// CartContext.js
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-const CartContext = createContext();
+// Create a context
+export const CartContext = createContext();
 
-export const useCart = () => useContext(CartContext);
-
+// Create a provider component
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+
+  const addToCart = (item) => {
+    const itemInCart = cart.find((cartItem) => cartItem.itemid === item.itemid);
+    if (itemInCart) {
+      // Item already exists in cart, update its quantity
+      const updatedCart = cart.map((cartItem) =>
+        cartItem.itemid === item.itemid ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+      );
+      setCart(updatedCart);
+    } else {
+      // Item doesn't exist in cart, add it
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
+  };
 
   const updateQuantity = (itemid, newQuantity) => {
     const updatedCart = cart.map((item) =>
@@ -25,8 +38,13 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, updateQuantity, deleteItem, calculateSubtotal }}>
+    <CartContext.Provider value={{ cart, addToCart, updateQuantity, deleteItem, calculateSubtotal }}>
       {children}
     </CartContext.Provider>
   );
+};
+
+// Custom hook to consume the CartContext
+export const useCart = () => {
+  return useContext(CartContext);
 };

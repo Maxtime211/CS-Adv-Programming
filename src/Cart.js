@@ -1,25 +1,9 @@
-// Cart.js
-import React, { useState } from 'react';
+import React from 'react';
+import { useCart } from './CartContext'; // Import useCart instead of CartContext
 import './App.css';
 
 function Cart() {
-  const [cart, setCart] = useState([]);
-
-  const updateQuantity = (itemid, newQuantity) => {
-    const updatedCart = cart.map((item) =>
-      item.itemid === itemid ? { ...item, quantity: newQuantity } : item
-    );
-    setCart(updatedCart);
-  };
-
-  const deleteItem = (itemid) => {
-    const updatedCart = cart.filter((item) => item.itemid !== itemid);
-    setCart(updatedCart);
-  };
-
-  const calculateSubtotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-  };
+  const { cart, updateQuantity, deleteItem, calculateSubtotal } = useCart(); // Destructure values from CartContext
 
   return (
     <div>
@@ -45,12 +29,13 @@ function Cart() {
             </div>
           ))
         )}
-      </div>
-      <div id="subtotal">
-        <p>Subtotal: ${calculateSubtotal()}</p>
+        <div id="subtotal">
+          <p>Subtotal: ${calculateSubtotal()}</p>
+        </div>
       </div>
     </div>
   );
 }
 
 export default Cart;
+

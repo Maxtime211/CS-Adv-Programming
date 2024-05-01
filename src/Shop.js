@@ -1,9 +1,12 @@
 // Shop.js
-import React, { useState } from 'react';
+import React from 'react';
+import { useCart } from './CartContext'; // Import useCart hook
 import './App.css';
 
 function Shop() {
-  const [items, setItems] = useState([
+  const { addToCart } = useCart(); // Access addToCart function from CartContext
+
+  const items = [
     {
       image: "https://media.sweetwater.com/images/items/120/SM57-medium.jpg",
       url: "https://www.sweetwater.com/store/detail/SM57",
@@ -25,8 +28,8 @@ function Shop() {
       serial: 227130360,
       description: "Solidbody Electric Guitar with Mahogany Body, Mahogany Neck, Rosewood Fingerboard, and 2 Humbucking Pickups - Heritage Cherry",
       available: 1
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/images/items/120/SM58-medium.jpg",
       url: "https://www.sweetwater.com/store/detail/SM58",
       manufacturer: "Shure",
@@ -36,8 +39,8 @@ function Shop() {
       price: 99.0,
       description: "Dynamic Vocal Microphone with Cardioid Pickup Pattern and 50Hz- 15kHz Frequency Response, Includes Stand Adapter, and Zippered Carrying Case",
       available: 6
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/images/items/120/R16-medium.jpg",
       url: "https://www.sweetwater.com/store/detail/R16",
       manufacturer: "Zoom",
@@ -47,8 +50,8 @@ function Shop() {
       price: 399.99,
       description: "16-track Portable SD Recorder, USB Audio Interface, and DAW Control Surface with 8 Microphone Inputs, Built-in Stereo Condenser Microphones, Built-in Effects, 1GB SD Card, and USB - Mac/PC",
       available: 14
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/m/products/image/b4ea91124f0H67L5GHDcNbMeoJH3qeD7Y01ca3d3.jpg?quality=82&width=750&ha=b4ea91124fb7723b",
       url: "https://www.sweetwater.com/store/detail/NE6D-73--nord-electro-6d-73",
       manufacturer: "Nord", 
@@ -58,9 +61,8 @@ function Shop() {
       price: 2999.0,
       description: "73-note Stage Piano with Piano and Organ Sounds, Physical Drawbars, Effects, USB, and Rotary Speaker Emulator",
       available: 12
-
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/m/products/image/ef861881bdAVlVUmkZ4dbk3DpUVhEGuGmVmZ0elr.jpg?quality=82&width=750&ha=ef861881bdd7aa90",
       url: "https://www.sweetwater.com/store/detail/Hohnica48--hohner-1304-red-48-bass-entry-level-piano-accordion-pearl-red",
       manufacturer: "Hohner",
@@ -70,9 +72,8 @@ function Shop() {
       price: 749.0,
       description: "Piano Accordion with 26 Piano Keys and 48 Push-button Bass Keys - Pearl Red",
       available: 9
-
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/m/products/image/17f8ef87ebM2Ab08c5m48ghmWXup8QBSxYqx7p1a.jpg?quality=82&height=750&ha=17f8ef87eb4d13f9",
       url: "https://www.sweetwater.com/store/detail/StroboPHDC--peterson-stroboplus-hdc-chromatic-handheld-strobe-tuner",
       manufacturer: "Peterson", 
@@ -82,9 +83,8 @@ function Shop() {
       price: 179.0,
       description: "Chromatic Handheld Strobe Tuner",
       available: 9
-
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/m/products/image/077e544cbd9OfKXen6XJwBOBYpikpEbeiyLUZOkM.jpg?quality=82&height=750&ha=077e544cbdc545da",
       url: "https://www.sweetwater.com/store/detail/HypeMic--apogee-hypemic-for-ipad-iphone-mac-and-windows",
       manufacturer: "Apogee", 
@@ -94,9 +94,8 @@ function Shop() {
       price: 349.0,
       description: "Cardioid USB Microphone with 24-bit/96kHz PureDIGITAL Connection, Compressor, Headphone Output with Blend Feature, Tripod, Pop Filter, and Carrying Case - Mac/PC/iOS",
       available: 70
-
-  },
-  {
+    },
+    {
       image: "https://media.sweetwater.com/m/products/image/94a65b96ednsxNuQ55ZQG8sFZ4yGqAxSA07ZgzuN.jpg?quality=82&height=750&ha=94a65b96edfbbf7d",
       url: "https://www.sweetwater.com/store/detail/ResMicroCseBun--blackmagic-design-davinci-resolve-micro-panel-with-hardshell-case",
       manufacturer: "Blackmagic Design", 
@@ -106,41 +105,8 @@ function Shop() {
       price: 1049.0,
       description: "DaVinci Resolve Workstation for Resolve/Resolve Studio 14.3 or Later with 3 Trackballs, 12 Color Correction Controls, 18 Nav/Transport Buttons, USB-C, and Hardshell iSeries Case",
       available: 10
-
-  }
-  ]);
-
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (item) => {
-    const itemInCart = cart.find((cartItem) => cartItem.itemid === item.itemid);
-    if (itemInCart) {
-      // Item already exists in cart, update its quantity
-      const updatedCart = cart.map((cartItem) =>
-        cartItem.itemid === item.itemid ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-      );
-      setCart(updatedCart);
-    } else {
-      // Item doesn't exist in cart, add it
-      setCart([...cart, { ...item, quantity: 1 }]);
     }
-  };
-
-  const updateQuantity = (itemid, newQuantity) => {
-    const updatedCart = cart.map((item) =>
-      item.itemid === itemid ? { ...item, quantity: newQuantity } : item
-    );
-    setCart(updatedCart);
-  };
-
-  const deleteItem = (itemid) => {
-    const updatedCart = cart.filter((item) => item.itemid !== itemid);
-    setCart(updatedCart);
-  };
-
-  const calculateSubtotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-  };
+  ];
 
   return (
     <div>
@@ -155,29 +121,6 @@ function Shop() {
             <button onClick={() => addToCart(item)}>Add to Cart</button>
           </div>
         ))}
-      </div>
-      <div id="cart">
-        <h2>Your Cart</h2>
-        {cart.map((item) => (
-          <div className="cart-item" key={item.itemid}>
-            <img src={item.image} alt={item.productName} />
-            <div className="cart-item-info">
-              <h3>{item.productName}</h3>
-              <p className="cart-item-description">{item.description}</p>
-              <p>Price: ${item.price.toFixed(2)}</p>
-              <input
-                type="number"
-                value={item.quantity}
-                min="1"
-                onChange={(e) => updateQuantity(item.itemid, parseInt(e.target.value))}
-              />
-              <button onClick={() => deleteItem(item.itemid)}>Delete</button>
-            </div>
-          </div>
-        ))}
-        <div id="subtotal">
-          <p>Subtotal: ${calculateSubtotal()}</p>
-        </div>
       </div>
     </div>
   );
