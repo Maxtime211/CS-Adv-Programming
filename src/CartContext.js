@@ -7,19 +7,20 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  const addToCart = (item) => {
+  const addToCart = (item, quantity) => {
     const itemInCart = cart.find((cartItem) => cartItem.itemid === item.itemid);
     if (itemInCart) {
       // Item already exists in cart, update its quantity
       const updatedCart = cart.map((cartItem) =>
-        cartItem.itemid === item.itemid ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        cartItem.itemid === item.itemid ? { ...cartItem, quantity: cartItem.quantity + parseInt(quantity) } : cartItem
       );
       setCart(updatedCart);
     } else {
       // Item doesn't exist in cart, add it
-      setCart([...cart, { ...item, quantity: 1 }]);
+      setCart([...cart, { ...item, quantity: parseInt(quantity) }]);
     }
   };
+  
 
   const updateQuantity = (itemid, newQuantity) => {
     const updatedCart = cart.map((item) =>

@@ -1,12 +1,12 @@
 // Shop.js
-import React from 'react';
-import { useCart } from './CartContext'; // Import useCart hook
+import React, { useState } from 'react';
 import './App.css';
+import { useCart } from './CartContext'; // Import useCart hook
 
 function Shop() {
-  const { addToCart } = useCart(); // Access addToCart function from CartContext
+  const { addToCart } = useCart(); // Use useCart hook
 
-  const items = [
+  const [items, setItems] = useState([
     {
       image: "https://media.sweetwater.com/images/items/120/SM57-medium.jpg",
       url: "https://www.sweetwater.com/store/detail/SM57",
@@ -106,7 +106,7 @@ function Shop() {
       description: "DaVinci Resolve Workstation for Resolve/Resolve Studio 14.3 or Later with 3 Trackballs, 12 Color Correction Controls, 18 Nav/Transport Buttons, USB-C, and Hardshell iSeries Case",
       available: 10
     }
-  ];
+  ]);
 
   return (
     <div>
@@ -118,7 +118,8 @@ function Shop() {
             <h3>{item.productName}</h3>
             <p>{item.description}</p>
             <p>Price: ${item.price.toFixed(2)}</p>
-            <button onClick={() => addToCart(item)}>Add to Cart</button>
+            <input type="number" min="1" defaultValue="1" id={`quantity-${item.itemid}`} />
+            <button onClick={() => addToCart(item, document.getElementById(`quantity-${item.itemid}`).value)}>Add to Cart</button>
           </div>
         ))}
       </div>
