@@ -1,5 +1,6 @@
 // Cart.js
 import React, { useState } from 'react';
+import './App.css';
 
 function Cart() {
   const [cart, setCart] = useState([]);
