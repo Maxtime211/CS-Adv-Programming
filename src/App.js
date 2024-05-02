@@ -28,6 +28,16 @@ const Footer = () => {
   );
 };
 
+// Home page component
+function Home() {
+  return (
+    <div>
+      <h1>Welcome to Sweetwater Shop</h1>
+      <p>Explore our wide range of products and find exactly what you need.</p>
+    </div>
+  );
+};
+
 function App() {
   return (
     <Router>
@@ -37,6 +47,7 @@ function App() {
             <Navbar /> {/* Include the navigation bar */}
           </header>
           <Routes>
+            <Route path="/" element={<Home />} /> {/* Define route for Home page */}
             <Route path="/cart" element={<Cart />} />
             <Route path="/shop" element={<Shop />} />
           </Routes>
@@ -48,6 +59,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

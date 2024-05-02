@@ -109,18 +109,6 @@ function Shop() {
     }
   ]);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
-
-  const handleAddToCart = (item) => {
-    addToCart(item, document.getElementById(`quantity-${item.itemid}`).value);
-    setMessage(`Added ${item.productName} (${document.getElementById(`quantity-${item.itemid}`).value}) to cart.`);
-    openModal();
-  };
-
   return (
     <div>
       <h1>Shop</h1>
@@ -132,11 +120,10 @@ function Shop() {
             <p>{item.description}</p>
             <p>Price: ${item.price.toFixed(2)}</p>
             <input type="number" min="1" defaultValue="1" id={`quantity-${item.itemid}`} />
-            <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
+            <button onClick={() => addToCart(item, document.getElementById(`quantity-${item.itemid}`).value)}>Add to Cart</button>
           </div>
         ))}
       </div>
-      <Modal isOpen={isOpen} closeModal={closeModal} message={message} />
     </div>
   );
 }
