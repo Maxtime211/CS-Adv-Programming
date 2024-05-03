@@ -109,9 +109,28 @@ function Shop() {
     }
   ]);
 
+  const [notification, setNotification] = useState({ message: '', visible: false });
+
+  const handleAddToCart = (item) => {
+    const quantityInput = document.getElementById(`quantity-${item.itemid}`);
+    const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+
+    addToCart(item, quantity);
+    
+    // Set notification message
+    setNotification({ message: `Added ${quantity} ${item.productName} to cart`, visible: true });
+
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+      setNotification({ ...notification, visible: false });
+    }, 3000);
+  };
+
   return (
     <div>
       <h1>Shop</h1>
+      {/* Notification area */}
+      {notification.visible && <div className="notification">{notification.message}</div>}
       <div className="item-list">
         {items.map((item) => (
           <div key={item.itemid} className="item">
@@ -120,7 +139,7 @@ function Shop() {
             <p>{item.description}</p>
             <p>Price: ${item.price.toFixed(2)}</p>
             <input type="number" min="1" defaultValue="1" id={`quantity-${item.itemid}`} />
-            <button onClick={() => addToCart(item, document.getElementById(`quantity-${item.itemid}`).value)}>Add to Cart</button>
+            <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
           </div>
         ))}
       </div>
