@@ -1,10 +1,10 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { CartProvider } from './CartContext'; // Import CartProvider
 import './App.css';
 import Cart from './Cart';
 import Shop from './Shop';
+import Checkout from './Checkout'; // Import Checkout component
 
 // Navigation bar component
 const Navbar = () => {
@@ -51,6 +51,7 @@ function App() {
             <Route path="/" element={<Home />} /> {/* Define route for Home page */}
             <Route path="/cart" element={<Cart />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/checkout" element={<Checkout />} /> {/* Add route for checkout */}
           </Routes>
           <Footer /> {/* Include the footer */}
         </div>
@@ -60,6 +61,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

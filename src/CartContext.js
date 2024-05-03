@@ -20,7 +20,6 @@ export const CartProvider = ({ children }) => {
       setCart([...cart, { ...item, quantity: parseInt(quantity) }]);
     }
   };
-  
 
   const updateQuantity = (itemid, newQuantity) => {
     const updatedCart = cart.map((item) =>
@@ -38,8 +37,12 @@ export const CartProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, deleteItem, calculateSubtotal }}>
+    <CartContext.Provider value={{ cart, addToCart, updateQuantity, deleteItem, calculateSubtotal, clearCart }}>
       {children}
     </CartContext.Provider>
   );
