@@ -314,4 +314,24 @@ body {
   font-size: 18px;
   line-height: 1.6;
 }
+/* Cart Page Button */
+.cart-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
+/* Checkout Page Button */
+.checkout-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}

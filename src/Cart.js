@@ -1,9 +1,10 @@
 import React from 'react';
-import { useCart } from './CartContext'; // Import useCart instead of CartContext
+import { Link } from 'react-router-dom';
+import { useCart } from './CartContext';
 import './App.css';
 
 function Cart() {
-  const { cart, updateQuantity, deleteItem, calculateSubtotal } = useCart(); // Destructure values from CartContext
+  const { cart, updateQuantity, deleteItem, calculateSubtotal } = useCart();
 
   return (
     <div>
@@ -24,7 +25,7 @@ function Cart() {
                   min="1"
                   onChange={(e) => updateQuantity(item.itemid, parseInt(e.target.value))}
                 />
-                <button onClick={() => deleteItem(item.itemid)}>Delete</button>
+                <button className="cart-button" onClick={() => deleteItem(item.itemid)}>Delete</button>
               </div>
             </div>
           ))
@@ -32,10 +33,13 @@ function Cart() {
         <div id="subtotal">
           <p>Subtotal: ${calculateSubtotal()}</p>
         </div>
+        <Link to="/checkout" className="cart-button">Checkout</Link>
       </div>
     </div>
   );
 }
 
 export default Cart;
+
+
 
